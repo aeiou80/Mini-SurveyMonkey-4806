@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.model.Question;
 
 @Repository
-public interface QuestionsRepository extends JpaRepository<Question, Integer> {
+public interface QuestionsRepository<T extends Question> extends JpaRepository<T, Integer> {
 
 }
