@@ -11,7 +11,13 @@ import javax.persistence.InheritanceType;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 
-
+/**
+ * Question Model, with subclasses RangeQuestion, TextQuestion, and MCQuestion, stored using one table.
+ * The subclasses are discriminated using question_type in the database
+ * The subclasses are discriminated using type when converting json to question
+ * 
+ * @author frank
+ */
 @JsonTypeInfo(
 	use = JsonTypeInfo.Id.NAME,
 	include = JsonTypeInfo.As.EXISTING_PROPERTY,
