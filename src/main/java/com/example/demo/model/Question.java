@@ -1,14 +1,18 @@
 package com.example.demo.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 
 /**
@@ -36,9 +40,21 @@ public class Question {
 	private @Id @GeneratedValue int id;	
 	private String question;
 	protected QuestionType type;
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, optional = false)
+	@JsonIgnoreProperties({"name", "questions"})
+	private Survey survey;
+	
+	public Survey getSurvey() {
+		return survey;
+	}
+
+	public void setSurvey(Survey survey) {
+		this.survey = survey;
+	}
   	
   	public int getId() {
-  		return this.id;
+  		return id;
   	}
   	
   	public void setId(int id) {
