@@ -24,41 +24,43 @@ class QuestionTest {
 	RangeQuestion range = new RangeQuestion();
 	MultipleChoiceQuestion mc = new MultipleChoiceQuestion();
 	Survey survey;
-	
+
 	@Autowired
 	QuestionsController controller;
-	
+
 	@Autowired
 	SurveyController surveyController;
-	
+
 	@Test
 	void testQuestionType() {
 		assertEquals(text.getType(), QuestionType.TEXT);
 		assertEquals(range.getType(), QuestionType.RANGE);
 		assertEquals(mc.getType(), QuestionType.MC);
 	}
-	
+
 	@Test
 	void controllerTest() {
 		survey = surveyController.create("First");
 		text.setSurvey(survey);
 		range.setSurvey(survey);
 		mc.setSurvey(survey);
-		
+
 		assert(controller.get().isEmpty());
 		text = (TextQuestion) controller.create(text);
 		range = (RangeQuestion) controller.create(range);
 		mc = (MultipleChoiceQuestion) controller.create(mc);
 		assertEquals(controller.get().size(), 3);
-		
+
 		assertEquals(controller.get(text.getId()), text);
 		assertEquals(controller.get(range.getId()), range);
 		assertEquals(controller.get(mc.getId()), mc);
-		
+
 		controller.delete(text.getId());
 		controller.delete(range.getId());
 		controller.delete(mc.getId());
 		assert(controller.get().isEmpty());
+
+		surveyController.delete(survey.getId());
 	}
 	
 	/* 
@@ -93,8 +95,8 @@ class QuestionTest {
 		assert(controller.get().isEmpty());
 	}
 	*/
-	
 
-	
+
+
 
 }
