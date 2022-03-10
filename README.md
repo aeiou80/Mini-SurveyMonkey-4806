@@ -17,3 +17,6 @@ A simple knock-off of Survey Monkey for the SYSC 4806 Group Project
  - Publish surveys and answer them
  - Close surveys
  - Integration testing
+
+### Current Schema Diagram
+![DB Schema Diagram](src/images/DB_Schema.png?raw=true "DB Schema Diagram")
