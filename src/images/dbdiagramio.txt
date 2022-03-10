@@ -1,0 +1,19 @@
+
+Table survey {
+  id int [pk, increment]
+  name String
+}
+
+Table question {
+  id int [pk, increment]
+  type QuestionType
+  survey_id int
+}
+
+Table answer {
+  id int [pk, increment]
+  survey_id int
+}
+
+Ref: question.survey_id > survey.id
+Ref: answer.survey_id > survey.id
