@@ -11,5 +11,5 @@ import com.example.demo.model.Answer;
 
 @Repository
 public interface AnswersRepository extends JpaRepository<Answer, Integer> {
-	public List<Answer> findBySurveyId(@Param("id") int id);
+	public List<Answer> findBySurveyId(int id);
 }
