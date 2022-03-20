@@ -1,19 +1,10 @@
 package com.example.demo.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+import javax.persistence.*;
 
 /**
  * Question Model, with subclasses RangeQuestion, TextQuestion, and MCQuestion, stored using one table.
@@ -29,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 	visible = true
 )
 @JsonSubTypes({
-	@JsonSubTypes.Type (value = TextQuestion.class, name = "TEXT"),
+	@JsonSubTypes.Type(value = TextQuestion.class, name = "TEXT"),
 	@JsonSubTypes.Type(value = RangeQuestion.class, name = "RANGE"),
 	@JsonSubTypes.Type(value = MultipleChoiceQuestion.class, name = "MC")	
 })

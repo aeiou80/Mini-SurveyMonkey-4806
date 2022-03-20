@@ -1,0 +1,41 @@
+### Login
+POST http://localhost:8080/login
+Content-Type: application/x-www-form-urlencoded
+
+username=user1&password=password
+
+### Logout
+POST http://localhost:8080/logout
+
+### Get all surveys
+GET http://localhost:8080/survey
+
+### Create user
+POST http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "username": "user1",
+  "password": "password"
+}
+
+### Get users
+GET http://localhost:8080/user
+
+### Create survey
+POST http://localhost:8080/survey
+Content-Type: text/plain
+
+Survey 1
+
+### Create MC question
+POST http://localhost:8080/question
+Content-Type: application/json
+
+{"question":"How many?","type":"MC","choices":["1","2","3"],"survey":{"id":"1"}}
+
+### Create Range question
+POST http://localhost:8080/question
+Content-Type: application/json
+
+{"question":"How big?","type":"RANGE","min":1,"max":10,"survey":{"id":"1"}}
