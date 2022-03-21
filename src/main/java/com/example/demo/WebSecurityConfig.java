@@ -12,8 +12,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -52,7 +57,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             HttpServletResponse.SC_OK
                     ))
                     .and()
+                .cors().and()
                 .csrf().disable();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        CorsConfiguration config = new CorsConfiguration();
+        List<String> allowed = new ArrayList<>();
+        allowed.add("localhost:3000");
+        allowed.add("http://localhost:3000");
+        config.setAllowedOrigins(allowed);
+
+        List<String> methods = new ArrayList<>();
+        methods.add("POST");
+        methods.add("GET");
+        methods.add("DELETE");
+        methods.add("PUT");
+        methods.add("OPTIONS");
+        config.setAllowedMethods(methods);
+
+        List<String> headers = new ArrayList<>();
+        headers.add("Content-Type");
+        headers.add("Authorization");
+        headers.add("Set-Cookie");
+        headers.add("registerCorsConfiguration");
+
+        config.setAllowedHeaders(headers);
+        config.setExposedHeaders(headers);
+        config.setAllowCredentials(true);
+        source.registerCorsConfiguration("/**", config.applyPermitDefaultValues());
+        return source;
     }
 
     @Bean
