@@ -69,6 +69,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         List<String> allowed = new ArrayList<>();
         allowed.add("localhost:3000");
         allowed.add("http://localhost:3000");
+        allowed.add("react-mini-surveymonkey.herokuapp.com");
+        allowed.add("https://react-mini-surveymonkey.herokuapp.com");
         config.setAllowedOrigins(allowed);
 
         List<String> methods = new ArrayList<>();
