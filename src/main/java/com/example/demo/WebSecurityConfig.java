@@ -36,7 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     )
                     .and()
                 .authorizeRequests()  // Require all requests to be authenticated except for select few
-                    .antMatchers(HttpMethod.POST, "/answer", "/user").permitAll()
+                    .antMatchers(HttpMethod.POST, "/answer/", "/user").permitAll()
+                    .antMatchers(HttpMethod.GET, "/survey/*").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()  // Handle login
