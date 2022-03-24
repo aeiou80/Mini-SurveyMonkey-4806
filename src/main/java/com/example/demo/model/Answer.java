@@ -16,8 +16,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Answer {
 	private @Id @GeneratedValue int id;	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonIgnoreProperties({"name", "questions"})
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnoreProperties({"name", "questions", "closed"})
 	private Survey survey;
 	
     public Survey getSurvey() {

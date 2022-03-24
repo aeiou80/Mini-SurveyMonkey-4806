@@ -18,9 +18,11 @@ public class Survey {
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "survey")
     private List<Question> questions;
   	private String name;
+  	private boolean closed;
   	
   	public Survey() {
   		questions = new ArrayList<Question>();
+  		closed = false;
   	}
   	
     public int getId() {
@@ -49,6 +51,14 @@ public class Survey {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isClosed() {
+		return closed;
+	}
+
+	public void setClosed(boolean closed) {
+		this.closed = closed;
 	}
 
 }
