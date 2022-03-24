@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Survey;
-import com.example.demo.repository.IdNameProjection;
+import com.example.demo.repository.SurveyProjection;
 import com.example.demo.repository.SurveysRepository;
 
 @RestController
@@ -20,11 +20,11 @@ public class SurveyController {
 	private SurveysRepository repository;
 	
 	/**
-	 * @return a list of surveys with only {id, name} properties
+	 * @return a list of surveys with only {id, name, closed} properties
 	 */
 	@GetMapping("/survey")
-	public List<IdNameProjection> get() {
-		return repository.getAllIdsAndNames();
+	public List<SurveyProjection> get() {
+		return repository.getSurveyProjection();
 	}
 	
 	@GetMapping("/survey/{id}")
@@ -39,9 +39,16 @@ public class SurveyController {
 		return repository.save(survey); 
 	}
 	
-	
 	@DeleteMapping("/survey/{id}")
 	public void delete(@PathVariable int id) {
 		repository.deleteById(id);
 	}
+	
+	@PostMapping("/survey/{id}/close")
+	public Survey closeSurvey(@PathVariable int id) {
+		Survey survey = repository.findById(id).get();
+		survey.setClosed(true);
+		return repository.save(survey);
+	}
+	
 }

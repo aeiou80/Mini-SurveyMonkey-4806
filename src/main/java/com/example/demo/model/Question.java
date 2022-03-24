@@ -33,7 +33,7 @@ public class Question {
 	protected QuestionType type;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, optional = false)
-	@JsonIgnoreProperties({"name", "questions"})
+	@JsonIgnoreProperties({"name", "questions", "closed"})
 	private Survey survey;
 	
 	public Survey getSurvey() {

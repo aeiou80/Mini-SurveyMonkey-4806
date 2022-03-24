@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface SurveysRepository extends JpaRepository<Survey, Integer> {
 	@Query("SELECT s FROM #{#entityName} s")
-	List<IdNameProjection> getAllIdsAndNames();
+	List<SurveyProjection> getSurveyProjection();
 }

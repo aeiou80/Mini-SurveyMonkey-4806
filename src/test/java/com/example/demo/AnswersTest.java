@@ -30,7 +30,6 @@ public class AnswersTest {
 		answer.setSurvey(survey);
 		controller.create(answer);
 
-		assertEquals(answer.getSurvey(), survey);
 		assertEquals(controller.get(survey.getId()).size(), 1);
 
 		controller.delete(answer.getId());
