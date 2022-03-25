@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,14 +30,19 @@ public class AnswersController {
 	public List<Answer> get(@PathVariable int id) {
 		return answersRepository.findBySurveyId(id);
 	}
-	
+
+	/**
+	 * Submit a set of answers to a survey. Only allowed if a survey is published and not closed.
+	 * @param answer
+	 * @return
+	 */
 	@PostMapping("/answer")
-	public Answer create(@RequestBody Answer answer) {
+	public ResponseEntity<Answer> create(@RequestBody Answer answer) {
 		Survey survey = surveysRepository.findById(answer.getSurvey().getId()).get();
-		if (survey.isClosed()) {
-			throw new IllegalArgumentException();
+		if (!survey.isPublished() || survey.isClosed()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		return answersRepository.save(answer); 
+		return new ResponseEntity<>(answersRepository.save(answer), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/answer/{id}")
