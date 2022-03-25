@@ -26,6 +26,7 @@ public class Survey {
     public Survey() {
         questions = new ArrayList<>();
         closed = false;
+        published = false;
     }
 
     public int getId() {

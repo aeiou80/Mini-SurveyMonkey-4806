@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Question;
 import com.example.demo.model.Survey;
 import com.example.demo.repository.QuestionsRepository;
+import com.example.demo.repository.SurveysRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,8 @@ public class QuestionsController {
 	
 	@Autowired
 	private QuestionsRepository<Question> questionsRepository;
+	@Autowired
+	private SurveysRepository surveysRepository;
 	
 	@GetMapping("/question")
 	public List<Question> get() {
@@ -43,8 +46,8 @@ public class QuestionsController {
 	 */
 	@PostMapping("/question")
 	public ResponseEntity<Question> create(@RequestBody Question question) {
-		Survey survey = question.getSurvey();
-		if (survey.isClosed() || !survey.isPublished()) {
+		Survey survey = surveysRepository.getById(question.getSurvey().getId());
+		if (survey.isClosed() || survey.isPublished()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(questionsRepository.save(question), HttpStatus.OK);
