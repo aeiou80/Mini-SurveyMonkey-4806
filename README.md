@@ -18,5 +18,11 @@ A simple knock-off of Survey Monkey for the SYSC 4806 Group Project
  - Close surveys
  - Integration testing
 
+## Plan For Spring #3
+- Allow user to only submit survey once
+- Add thank you page after submitting answers
+- Fix rendering issue for multiple answers
+- Additional testing
+
 ### Current Schema Diagram
 ![DB Schema Diagram](src/images/DB_Schema.png?raw=true "DB Schema Diagram")
