@@ -20,7 +20,7 @@ class SurveyTest {
 		assert(controller.get().isEmpty());
 		Survey survey = controller.create("First Survey");
 		assertEquals(survey.getName(), "First Survey");
-		assertEquals(survey.isClosed(), false);
+		assertFalse(survey.isClosed());
 		assertEquals(controller.get().size(), 1);
 		
 		
@@ -29,12 +29,9 @@ class SurveyTest {
 		assertEquals(p.getId(), survey.getId());
 		
 		controller.closeSurvey(survey.getId());
-		assertEquals(controller.get(survey.getId()).isClosed(), true);
+		assertTrue(controller.get(survey.getId()).isClosed());
 		
 		controller.delete(survey.getId());
 		assert(controller.get().isEmpty());
-		
-		
 	}
-
 }

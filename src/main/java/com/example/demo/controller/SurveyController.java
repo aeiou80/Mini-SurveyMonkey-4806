@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +51,17 @@ public class SurveyController {
 		Survey survey = repository.findById(id).get();
 		survey.setClosed(true);
 		return repository.save(survey);
+	}
+
+	@PostMapping("/survey/{id}/publish")
+	public ResponseEntity<Survey> publishSurvey(@PathVariable int id) {
+		Survey survey = repository.findById(id).get();
+
+		if (survey.isClosed()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		survey.setPublished(true);
+		return new ResponseEntity<>(repository.save(survey), HttpStatus.OK);
 	}
 	
 }

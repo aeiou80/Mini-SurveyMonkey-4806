@@ -13,52 +13,62 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Survey {
-	private @Id @GeneratedValue int id;	
-	
+    @Id
+    @GeneratedValue
+    private int id;
+
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "survey")
     private List<Question> questions;
-  	private String name;
-  	private boolean closed;
-  	
-  	public Survey() {
-  		questions = new ArrayList<Question>();
-  		closed = false;
-  	}
-  	
+    private String name;
+    private boolean closed;
+    private boolean published;
+
+    public Survey() {
+        questions = new ArrayList<>();
+        closed = false;
+    }
+
     public int getId() {
-  		return id;
-  	}
-  	
-  	public void setId(int id) {
-  		this.id = id;
-  	}
+        return id;
+    }
 
-  	public List<Question> getQuestions() {
-		return questions;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
-	}
-	
-	public boolean equals(Object o) {
-		return ((Survey) o).id == this.id;
-	}
+    public List<Question> getQuestions() {
+        return questions;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public boolean equals(Object o) {
+        return ((Survey) o).id == this.id;
+    }
 
-	public boolean isClosed() {
-		return closed;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setClosed(boolean closed) {
-		this.closed = closed;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public boolean isClosed() {
+        return closed;
+    }
+
+    public void setClosed(boolean closed) {
+        this.closed = closed;
+    }
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
 }

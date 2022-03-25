@@ -12,7 +12,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @AutoConfigureWebTestClient
 public class WebTest {
     @Test
-    void exampleTest(@Autowired WebTestClient webClient) {
+    void authTest(@Autowired WebTestClient webClient) {
         webClient
                 .get().uri("/survey")
                 .exchange()

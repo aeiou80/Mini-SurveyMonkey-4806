@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Question;
+import com.example.demo.model.Survey;
 import com.example.demo.repository.QuestionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +28,7 @@ public class QuestionsController {
 	}
 	
 	/**
+	 * Create a question and add it to a survey. You cannot add a question for closed or published surveys.
 	 * Sample post request:
 	 * {
      * 		"question": "Test?",
@@ -38,8 +42,12 @@ public class QuestionsController {
 	 * @return
 	 */
 	@PostMapping("/question")
-	public Question create(@RequestBody Question question) {
-		return questionsRepository.save(question); 
+	public ResponseEntity<Question> create(@RequestBody Question question) {
+		Survey survey = question.getSurvey();
+		if (survey.isClosed() || !survey.isPublished()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(questionsRepository.save(question), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/question/{id}")
