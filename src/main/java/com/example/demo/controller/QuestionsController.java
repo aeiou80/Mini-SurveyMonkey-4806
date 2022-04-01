@@ -46,7 +46,7 @@ public class QuestionsController {
 	 */
 	@PostMapping("/question")
 	public ResponseEntity<Question> create(@RequestBody Question question) {
-		Survey survey = surveysRepository.getById(question.getSurvey().getId());
+		Survey survey = surveysRepository.findById(question.getSurvey().getId()).get();
 		if (survey.isClosed() || survey.isPublished()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
