@@ -10,6 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Survey {
@@ -17,14 +22,29 @@ public class Survey {
     @GeneratedValue
     private int id;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "survey")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "survey")
     private List<Question> questions;
-    private String name;
+    
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "survey")
+    @JsonIgnore
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Answer> answers;
+    
+    public List<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+
+	private String name;
     private boolean closed;
     private boolean published;
 
     public Survey() {
         questions = new ArrayList<>();
+        answers = new ArrayList<>();
         closed = false;
         published = false;
     }
