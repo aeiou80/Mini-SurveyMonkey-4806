@@ -26,6 +26,7 @@ A simple knock-off of Survey Monkey for the SYSC 4806 Group Project
 - Fix rendering issue for multiple answers
 - Additional testing
 - Server-side validation
+- Fix bug when deleting surveys that have been answered
 
 ### Current Schema Diagram
 ![DB Schema Diagram](src/images/DB_Schema.png?raw=true "DB Schema Diagram")
