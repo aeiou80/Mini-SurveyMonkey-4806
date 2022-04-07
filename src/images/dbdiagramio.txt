@@ -1,20 +1,42 @@
-
-Table survey {
+Table ANSWER {
   id int [pk, increment]
-  name String
+  survey_id varchar
 }
 
-Table question {
+Table ANSWER_ANSWER {
+  answer_id int [pk, increment]
+  answer varchar
+}
+
+Table MULTIPLE_CHOICE_QUESTION_CHOICES {
+  mupltiple_choice_question_id int [pk, increment]
+  choices int
+}
+
+Table QUESTION {
   id int [pk, increment]
-  type QuestionType
-  question String
+  question_type varchar
+  question varchar
+  type int
+  max int
+  min int
   survey_id int
 }
 
-Table answer {
+Table SURVEY {
   id int [pk, increment]
-  survey_id int
+  closed boolean
+  name varchar
+  published boolean
 }
 
-Ref: question.survey_id > survey.id
-Ref: answer.survey_id > survey.id
+Table USER {
+  id int [pk, increment]
+  password varchar
+  username varchar
+}
+
+Ref: ANSWER_ANSWER.answer_id > ANSWER.id
+Ref: QUESTION.survey_id > SURVEY.id
+Ref: MULTIPLE_CHOICE_QUESTION_CHOICES.mupltiple_choice_question_id > QUESTION.id
+Ref: ANSWER.survey_id > SURVEY.id
