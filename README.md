@@ -28,5 +28,8 @@ A simple knock-off of Survey Monkey for the SYSC 4806 Group Project
 - Server-side validation
 - Fix bug when deleting surveys that have been answered
 
-### Current Schema Diagram
+### DB Diagram
 ![DB Schema Diagram](src/images/DB_Schema.png?raw=true "DB Schema Diagram")
+
+### UML
+![UML Diagram](src/images/UML.png?raw=true "UML Diagram")
